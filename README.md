@@ -37,7 +37,7 @@ go run . -port=9090
   docker run --rm -p 8080:8080 helloworld:latest
 
 构建并推送远端
-  docker buildx build -f Dockerfile --platform linux/amd64 -t harbor.imapp66.com/superapp/helloworld:latest --push . 
+  docker buildx build -f Dockerfile --platform linux/amd64 -t harbor.xxx.com/xxx/helloworld:latest --push . 
 
 ```
 
