@@ -11,6 +11,7 @@ func Setup() *gin.Engine {
 	r := gin.Default()
 
 	r.GET("/", handler.Home)
+	r.GET("/healthz", handler.Healthz)
 
 	r.NoRoute(handler.NotFound)
 
