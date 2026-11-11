@@ -8,13 +8,13 @@ PORT      := 8080
 
 help:
 	@echo "Usage:"
-	@echo "  make build         编译到 $(BIN)"
-	@echo "  make run           本地运行"
-	@echo "  make tidy          go mod tidy"
-	@echo "  make clean         清理构建产物"
-	@echo "  make docker-build  构建 Docker 镜像"
-	@echo "  make docker-run    运行 Docker 容器"
-	@echo "  make docker-stop   停止 Docker 容器"
+	@echo "  make build              编译到 $(BIN)"
+	@echo "  make run                本地运行（例: make run / make run PORT=9090）"
+	@echo "  make tidy               go mod tidy"
+	@echo "  make clean              清理构建产物"
+	@echo "  make docker-build       构建 Docker 镜像"
+	@echo "  make docker-run         运行 Docker 容器（例: make docker-run / make docker-run PORT=9090）"
+	@echo "  make docker-stop        停止 Docker 容器"
 
 build:
 	@mkdir -p $(BIN_DIR)
@@ -36,4 +36,4 @@ docker-run:
 	docker run --rm -d --name $(APP) -p $(PORT):8080 $(IMAGE)
 
 docker-stop:
-	-docker stop $(APP)
+	docker stop $(APP)
