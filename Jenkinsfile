@@ -11,7 +11,7 @@ pipeline {
     // 定义构建参数
     parameters {
         string(name: 'REGISTRY', defaultValue: 'harbor.xxx.com', description: '容器镜像仓库地址')
-        string(name: 'NAMESPACE', defaultValue: 'xxx', description: '镜像命名空间 / 项目')
+        string(name: 'NAMESPACE', defaultValue: 'hello', description: '镜像命名空间 / 项目')
         string(name: 'IMAGE_TAG', defaultValue: '', description: '镜像标签，留空则使用 BUILD_NUMBER')
         booleanParam(name: 'PUSH_IMAGE', defaultValue: true, description: '是否推送镜像到远端仓库')
     }
@@ -35,11 +35,15 @@ pipeline {
                 docker {
                     image 'golang:1.26-alpine'
                     reuseNode true
+                    args '-e HOME=/tmp -e GOCACHE=/tmp/go-build-cache -e GOMODCACHE=/tmp/go-mod-cache'
                 }
             }
             steps {
                 sh '''
                     go version
+                    echo "HOME=$HOME"
+                    echo "GOCACHE=$GOCACHE"
+                    echo "GOMODCACHE=$GOMODCACHE"
                     go mod download
                     go test ./...
                 '''
@@ -51,6 +55,7 @@ pipeline {
                 docker {
                     image 'golang:1.26-alpine'
                     reuseNode true
+                    args '-e HOME=/tmp -e GOCACHE=/tmp/go-build-cache -e GOMODCACHE=/tmp/go-mod-cache'
                 }
             }
             steps {
